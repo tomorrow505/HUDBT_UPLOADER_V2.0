@@ -1,0 +1,10 @@
+qbittorrent
+PIL
+feedparser
+bencode
+requests
+selenium
+bs4
+html2bbcode
+psutil
+pymediainfo
