@@ -109,6 +109,7 @@ def get_hash(filename):
     return sha1_data.upper()
 
 
+# 馒头下下来是http，换成https
 def change_tracker(torrent_path):
     back_path = torrent_path + '.torrent'
     os.rename(torrent_path, back_path)

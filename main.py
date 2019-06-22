@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Author:Chengli
+# Author:tomorrow
 
 from utils import auto_upload, hand_upload, login, commen_component, config_dl, config_rss, config_sites
 import tkinter as tk
@@ -50,6 +50,7 @@ class MainPage(tk.Tk):
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
 
+        # 创建frame供切换
         for F in (config_sites.ConfigSitesPage, config_dl.ConfigDlPage, auto_upload.AutoUploadPage,
                   hand_upload.HandUploadPage, login.LoginPage, config_rss.RssPage):
             page_name = F.__name__
@@ -106,9 +107,12 @@ class MainPage(tk.Tk):
 
         # 起始界面
         self.show_frame("LoginPage")
+
+        # 监测是否登录
         t1 = threading.Thread(target=self.check, args=())
         t1.start()
 
+    # 检查远程服务是否开启
     def check_remote_server(self):
         if not self.is_server_open:
             if self.config_dl['server_open']:
@@ -133,6 +137,7 @@ class MainPage(tk.Tk):
                 # tk.messagebox.showinfo('提示', '服务器模式已经关闭')
                 self.is_server_open = False
 
+    # 检查是否登录
     def check(self):
         while True:
             sleep(1)
@@ -170,6 +175,7 @@ class MainPage(tk.Tk):
         if self.login_statu:
             self.show_frame('RssPage')
 
+    # 关闭前call_back会执行这个函数
     def call_back(self):
         self.frames['AutoUploadPage'].bak_task()
         self.config_dl['server_open'] = False
@@ -192,6 +198,7 @@ class MainPage(tk.Tk):
         # 启动服务器，服务器将一直保持运行状态
         server.serve_forever()
 
+    # 清楚缓存文件
     def clear_cache(self):
         if not os.path.exists(self.config_dl['cache_path']):
             tk.messagebox.showerror('错误', '尚未配置缓存文件目录！！')
@@ -206,6 +213,7 @@ class MainPage(tk.Tk):
         except Exception as exc:
             tk.messagebox.showerror('失败', exc)
 
+    # 创建内部类用于开启服务器
     class MyServer(socketserver.BaseRequestHandler):
         """
         必须继承socketserver.BaseRequestHandler类
@@ -255,11 +263,13 @@ class MainPage(tk.Tk):
                 # print("来自%s的客户端向你发来信息：%s" % (self.client_address, data))
                 conn.sendall(('客户端指令：%s\n服务器结果：%s' % (data, result)).encode())
 
+    # 关于
     def about(self):
         if self.login_statu:
             messagebox.showinfo(title='About', message='Author：{author}\n鸣谢：{thanks}'.format(
                 author=self.author, thanks=self.thanks_list))
 
+    # 宣传弹窗
     def publicity(self):
         if self.login_statu:
             top1 = tk.Toplevel(self)
@@ -276,6 +286,7 @@ class MainPage(tk.Tk):
             top1.wm_attributes('-topmost', 1)
             top1.mainloop()
 
+    # 打开软件是提示删除超过30天的种子
     def delete_torrents_over_time(self):
         hash_list = []
         now = int(time.time())

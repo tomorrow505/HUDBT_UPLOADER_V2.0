@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-# Author:Chengli
-
+# Author:tomorrow505
 
 import shutil
 import tkinter as tk

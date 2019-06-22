@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Author:Chengli
+# Author:tomorrow505
 
 
 from time import sleep
@@ -375,12 +375,14 @@ class AutoSeed (threading.Thread):
     def get_hash_info(self):
         return self.raw_info['hash_info']
 
+    # 用于实现手动发布构造不一样的数据
     def fak_upload(self):
         torrent_path = self.entrie['torrent_path']
-        print(torrent_path)
+        # print(torrent_path)
         log_info = self.upload_to_hudbt(self.entrie, torrent_path)
         return log_info
 
+    # 替换海报链接。放弃了。
     def change_img_url(self, descr):
         if self.raw_info['douban_info']:
             try:

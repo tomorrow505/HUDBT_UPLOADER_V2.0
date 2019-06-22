@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-# Author:Chengli
-
+# Author:tomorrow505
 from tkinter import StringVar, Label, E, Button
 from qbittorrent import Client
 import pickle

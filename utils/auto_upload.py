@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Author:Chengli
+# Author:tomorrow505
 
 
 import tkinter as tk
@@ -143,7 +143,10 @@ class AutoUploadPage(tk.Frame):  # 继承Frame类
 
                 hash_info = chosen_task.get_hash_info()
                 if chosen_task.get_statu() != '发布成功' and hash_info:
-                    self.qb.delete_permanently(hash_info)
+                    # 判断有没有下载完
+                    torrent = self.qb.get_torrent(infohash=hash_info)
+                    if torrent['completion_date'] == -1:
+                        self.qb.delete_permanently(hash_info)
                 try:
                     commen_component.stop_thread(chosen_task)
                 except ValueError:
@@ -206,6 +209,7 @@ class AutoUploadPage(tk.Frame):  # 继承Frame类
         tv.heading(col, command=lambda: self.treeview_sort_column(
             tv, col, not reverse))  # 重写标题，使之成为再点倒序的标题
 
+    # 添加RSS任务
     def add_rss_task(self):
         while True:
             self.rsshandler.change_refresh_time(self.config_dl['refresh_time'])
@@ -230,6 +234,7 @@ class AutoUploadPage(tk.Frame):  # 继承Frame类
             else:
                 sleep(int(self.config_dl['refresh_time'])*60)
 
+    # 重新开启RSS
     def reopen_rss(self):
         try:
             commen_component.stop_thread(self.t)
@@ -248,6 +253,7 @@ class AutoUploadPage(tk.Frame):  # 继承Frame类
         self.get_bak_task()
         self.check_rss_mode()
 
+    # 检查RSS是否开启
     def check_rss_mode(self):
         if self.config_dl['rss_open']:
             if not self.is_rss_mode:
@@ -272,6 +278,7 @@ class AutoUploadPage(tk.Frame):  # 继承Frame类
             else:
                 return 'closed_already'
 
+    # 备份任务
     def bak_task(self):
         self.refresh_task()
         bak_task = []  # 以列表的形式保存未完成的种子
@@ -317,6 +324,7 @@ class AutoUploadPage(tk.Frame):  # 继承Frame类
         except FileNotFoundError:
             pass
 
+    # 添加任务
     def add_task_by_link(self, string, *args):
         detail_link = string
         # 禁止空或者误操作
@@ -360,6 +368,7 @@ class AutoUploadPage(tk.Frame):  # 继承Frame类
             self.refresh_t.start()
         return '任务已经添加'
 
+    # 远程获取任务状态
     def get_statu_by_link(self, link):
         task_all = self.tree.get_children()
         for item in task_all:
@@ -369,6 +378,7 @@ class AutoUploadPage(tk.Frame):  # 继承Frame类
                 return value_statu
         return 'no result'
 
+    # 远程取消任务
     def cancle_task_by_link(self, detail_link):
 
         find = False
@@ -401,6 +411,7 @@ class AutoUploadPage(tk.Frame):  # 继承Frame类
         else:
             return '没找到任务'
 
+    # 关掉RSS
     def close_rss(self):
         self.config_dl['rss_open'] = False
         self.check_rss_mode()
