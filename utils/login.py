@@ -5,6 +5,10 @@ from qbittorrent import Client
 import pickle
 import tkinter as tk
 
+'''
+用于登录qbit，并且将用户信息保存
+'''
+
 USER_INFO_PATH = './conf/user_info.pickle'
 
 

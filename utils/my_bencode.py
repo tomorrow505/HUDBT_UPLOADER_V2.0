@@ -1,5 +1,11 @@
 # -*- coding: utf-8 -*-
-# Author:Chengli
+# Author:tomorrow505
+
+'''
+处理与种子相关的流程
+'''
+
+
 
 import hashlib
 import bencode
@@ -97,6 +103,7 @@ def sha1sum(src):
     return m.hexdigest()
 
 
+# 自己的根据种子获取Hash值，有的网站不提供？
 def get_hash(filename):
     with open(filename, 'rb') as f:
         torrent_data = f.read()

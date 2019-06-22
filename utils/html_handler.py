@@ -1,6 +1,11 @@
 # -*- coding: utf-8 -*-
 # Author:tomorrow505
 
+'''
+处理与网页相关的解析流程
+'''
+
+
 import re
 from bs4 import BeautifulSoup
 import requests
@@ -834,6 +839,7 @@ class HtmlHandler:
         return douban_info
 
 
+# 根据imdb获取推荐
 def recommand_for_imdb(url):
 
     base_command = 'https://api.douban.com/v2/movie/imdb/{tt}?&apikey=02646d3fb69a52ff072d47bf23cef8fd'
@@ -1040,6 +1046,7 @@ def format_descr_mteam(descr):
     return descr
 
 
+# 根据构造的字典以及爬取到的类型相关字符串判断类型，字典待扩充
 def get_type_from_info(info: str or list):
     if isinstance(info, list):
         info = ''.join(info)
@@ -1064,6 +1071,7 @@ def get_type_from_info(info: str or list):
     return code
 
 
+# 接下来三个函数是三个html2bbcode的网站版实现，由于打包成exe,自带的不是很好用，不知道为啥
 def to_bbcode_use_api(data_html):
     url = 'https://www.garyshood.com/htmltobb/'
     data = {
@@ -1102,7 +1110,8 @@ def to_bbcode_use_api_2(data_html):
 
 def to_bbcode_use_api_3(data_html):
     headers = {
-        'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36",
+        'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+                      "Chrome/74.0.3729.169 Safari/537.36",
         'Cookie': 'csrftoken=11pSdyiaWLoC54kGmeEeNrbpynMayd5NRzxz2kiV99Qc5zXFQMkwzPn7hMPpv7nU'
     }
     session = requests.session()
@@ -1120,10 +1129,10 @@ def to_bbcode_use_api_3(data_html):
         code = soup.find('textarea', id='bbcode').get_text()
     except Exception:
         code = to_bbcode(data_html)
-
     return code
 
 
+# 为了将网页无关的引用直接废除，有mediainfo关键字的规范化——有待改进
 def format_mediainfo(soup, descr, mode=1):
     if mode == 1:
         fieldset = descr.find_all('fieldset')
@@ -1210,6 +1219,7 @@ def format_mediainfo(soup, descr, mode=1):
     return descr
 
 
+# 判断是否有mediainfo，无则根据视频自己生成
 def judge_nfo_existed(descr):
     if any(i in descr.upper() for i in mediainfo_judge):
         nfo = 'true'
