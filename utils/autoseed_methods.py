@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Author:tomorrow505
+# Author:Chengli
 
 
 from time import sleep
@@ -11,6 +11,7 @@ import os
 from utils import commen_component
 import get_media_info
 import threading
+import shutil
 from urllib.parse import unquote
 
 CONFIG_SITE_PATH = './conf/config_sites.json'
@@ -211,7 +212,6 @@ class AutoSeed (threading.Thread):
         # 处理种子名称
         filename = re.sub(r'^\[.{1,10}?\]|.mp4$|.mkv$|[\(\)]|\[|\]|[\u4e00-\u9fff]|[^-\.(A-Za-z0-9)]', ' ',
                           origin_filename)
-        # filename = origin_filename
         filename = ' '.join(filename.split('.'))
         filename = re.sub(' +', ' ', filename).lstrip()
         if pt_site['domain'] == 'https://pt.sjtu.edu.cn' or pt_site['domain'] == 'https://ourbits.club':
@@ -222,12 +222,12 @@ class AutoSeed (threading.Thread):
         self.raw_info['filename'] = filename
         self.raw_info['abbr'] = pt_site['abbr']
         if not filename:
-            filename = '%s_%s' % (pt_site['abbr'], tid)
+            filename = '%s_%s_%s' % (self.raw_info['title'], pt_site['abbr'], tid)
         else:
             filename = '%s_%s_%s' % (filename, pt_site['abbr'], tid)
         origin_file_path = self.config_dl['cache_path'] + '\\%s.torrent' % filename
 
-        # back_file_path = self.config_dl['backup_path'] + '\\%s.torrent' % filename
+        # back_file_path = self.config_dl['cache_path'] + '\\%s_back.torrent' % filename
 
         try:
             response.raise_for_status()
@@ -275,6 +275,7 @@ class AutoSeed (threading.Thread):
         torrent_file = open(torrent_path, 'rb')
         self.qb.download_from_file(torrent_file, savepath=dl_path, category=self.raw_info['category'],
                                    skip_checking=flag)
+        torrent_file.close()
 
     def upload_to_hudbt(self, raw_info, origin_torrent_path, params=None, files=None):
 
@@ -282,11 +283,17 @@ class AutoSeed (threading.Thread):
         hudbt = AutoSeed.pt_sites['蝴蝶']
 
         des_url = "{host}/takeupload.php".format(host=hudbt['domain'])
+
+        upload_torrent_path = self.backup_torrent(origin_torrent_path)
+        os.remove(origin_torrent_path)
+        torrent_file = open(upload_torrent_path, "rb")
+
         try:
-            files = [("file", (raw_info['filename'], open(origin_torrent_path, "rb"), "application/x-bittorrent")),
+            files = [("file", (raw_info['filename'], torrent_file, "application/x-bittorrent")),
                      ("nfo", ("", "", "application/octet-stream")), ]
         except Exception:
             log_info.append('Error')
+
             # sys.exit(0)
 
         if raw_info['title'] != '':
@@ -329,17 +336,16 @@ class AutoSeed (threading.Thread):
             "uplver": raw_info['uplver'],
         }
 
-        # print('开始准备发布蝴蝶种子！')
-
         des_post = requests.post(url=des_url, params=params, data=data, files=files, cookies=hudbt['cookie'])
-
+        # content = des_post.content.decode()
+        # print(content)
         seed_torrent_download_id = commen_component.get_id(des_post.url)
         if seed_torrent_download_id == -1:
             try:
                 content = des_post.content.decode()
                 seed_torrent_download_id = re.search('该种子已存在！.*id=(\d{2,8})', content)
                 log_info.append('该种子已经上传，进入辅种程序。')
-                # print('该种子已经上传，进入辅种程序。')
+                # print(content)
                 log_info.append('重复的种子')
                 seed_torrent_download_id = seed_torrent_download_id.group(1)
             except Exception as exc:
@@ -369,20 +375,20 @@ class AutoSeed (threading.Thread):
             # txt_path = os.path.join(self.config_dl['cache_path'], txt_path)
             # with open(txt_path, 'w', encoding='utf-8') as f:
             #     f.write(raw_info['descr'].encode().decode())
-
+            torrent_file.close()
+            os.remove(upload_torrent_path)
+            os.remove(origin_file_path)
         return log_info
 
     def get_hash_info(self):
         return self.raw_info['hash_info']
 
-    # 用于实现手动发布构造不一样的数据
     def fak_upload(self):
         torrent_path = self.entrie['torrent_path']
         # print(torrent_path)
         log_info = self.upload_to_hudbt(self.entrie, torrent_path)
         return log_info
 
-    # 替换海报链接。放弃了。
     def change_img_url(self, descr):
         if self.raw_info['douban_info']:
             try:
@@ -404,3 +410,15 @@ class AutoSeed (threading.Thread):
 
         return descr
 
+    def backup_torrent(self, origin_torrent_path):
+
+        origin_torrent_name = origin_torrent_path.split('\\')[-1]
+        new_filename = re.sub('\.torrent', '', origin_torrent_name)
+        new_filename = re.sub(r'^\[.{1,10}?\]|.mp4$|.mkv$|\[|\]|[\u4e00-\u9fff]|[^-\.@￡(A-Za-z0-9)]', '',
+                              new_filename)
+        new_filename = ' '.join(new_filename.split('.')).strip()
+        self.raw_info['filename'] = new_filename
+        back_up_path = self.config_dl['cache_path']+'\\%s_back.torrent' % new_filename
+        shutil.copyfile(origin_torrent_path, back_up_path)
+
+        return back_up_path
