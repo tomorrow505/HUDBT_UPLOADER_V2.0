@@ -28,8 +28,8 @@ ut转qbit，1000多种子，休息几天。
 
 2019-06-17：订阅漏掉部分？刷新耗时，需要更改规则检验确定时间间隔。——>已修复。
 2019-06-17：ut转qbt，折腾，欲增加reseed功能，测试中……（蝴蝶的搜索精度太惨了）
-![https://s2.ax1x.com/2019/06/17/VbJoRg.png]()
-![https://s2.ax1x.com/2019/06/23/ZPWwlj.png]()
+![](https://s2.ax1x.com/2019/06/17/VbJoRg.png)
+![](https://s2.ax1x.com/2019/06/23/ZPWwlj.png)
 
 2019-06-18：设置skip_checking，重做种跳过hash检验，直接辅种。
 
