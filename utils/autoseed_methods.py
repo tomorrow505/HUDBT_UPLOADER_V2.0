@@ -410,6 +410,7 @@ class AutoSeed (threading.Thread):
 
         return descr
 
+    # 修复发布失败的bug
     def backup_torrent(self, origin_torrent_path):
 
         origin_torrent_name = origin_torrent_path.split('\\')[-1]

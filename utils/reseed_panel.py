@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Author:Chengli
+# Author:tomorrow505
 
 import tkinter as tk
 from tkinter import Label, E, Entry, StringVar, Button

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Author:Chengli
+# Author:tomorrow505
 
 from utils import auto_upload, hand_upload, login, commen_component, config_dl, config_rss, config_sites, reseed_panel
 import tkinter as tk
@@ -13,7 +13,7 @@ import win32api
 import win32con
 import socketserver
 
-
+# 获取屏幕大小
 X = win32api.GetSystemMetrics(win32con.SM_CXSCREEN)
 Y = win32api.GetSystemMetrics(win32con.SM_CYSCREEN)
 
