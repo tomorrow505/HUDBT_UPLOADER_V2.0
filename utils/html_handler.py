@@ -65,6 +65,7 @@ type_dict = {
 }
 
 
+# 受信任的站点表示不自己获取简介，使用原始站点内容。
 class HtmlHandler:
 
     def __init__(self, abbr, html):

@@ -9,6 +9,7 @@ import json
 from pymediainfo import MediaInfo
 
 
+# 这段写得不好，可以改，懒得改了
 def get_video_info(video_file):
 
     mediainfo = ''
