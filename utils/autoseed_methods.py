@@ -418,7 +418,6 @@ class AutoSeed (threading.Thread):
         new_filename = re.sub(r'^\[.{1,10}?\]|.mp4$|.mkv$|\[|\]|[\u4e00-\u9fff]|[^-\.@￡(A-Za-z0-9)]', '',
                               new_filename)
         new_filename = ' '.join(new_filename.split('.')).strip()
-        self.raw_info['filename'] = new_filename
         back_up_path = self.config_dl['cache_path']+'\\%s_back.torrent' % new_filename
         shutil.copyfile(origin_torrent_path, back_up_path)
 
