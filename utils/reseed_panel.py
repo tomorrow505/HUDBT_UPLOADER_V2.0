@@ -115,8 +115,15 @@ class ReseedPage(tk.Frame):
             abs_path = parser[section]['abs_path']
             full_name = parser[section]['full_name']
             download_torrent_by_keyword(keyword=keyword, driver=driver_, size=size)
-            sleep(5)
+            
+			# 发现有的种子比较大，下载慢，所以要求等待下载完
+			sleep(2)
             torrents = os.listdir(self.torrent_path)
+            while True:
+                if all(torrent.endswith('.torrent') for torrent in torrents):
+                    break
+                else:
+                    sleep(1)
 
             for torrent in torrents:
                 abs_torrent_path = os.path.join(self.torrent_path, torrent)
