@@ -118,8 +118,9 @@ class ReseedPage(tk.Frame):
             
 			# 发现有的种子比较大，下载慢，所以要求等待下载完
 			sleep(2)
-            torrents = os.listdir(self.torrent_path)
+            
             while True:
+			    torrents = os.listdir(self.torrent_path)
                 if all(torrent.endswith('.torrent') for torrent in torrents):
                     break
                 else:
