@@ -1102,6 +1102,13 @@ def to_bbcode_use_api(data_html):
         return_html = des_post.content.decode()
         mysoup = BeautifulSoup(return_html, 'lxml')
         code = mysoup.find('textarea').get_text()
+		 # 这个网站解析出来很多是http:/bt 而不是http://bt的形式，替换掉
+        def change_str(str_):
+
+            str_ = '//'.join(str_.group().split('/'))
+            return str_
+
+        code = re.sub('(https?:/[^/])', change_str, code)
     except Exception as exc:
         # print(exc)
         code = to_bbcode_use_api_2(data_html)
