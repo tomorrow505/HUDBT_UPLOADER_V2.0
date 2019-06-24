@@ -1073,46 +1073,45 @@ def get_type_from_info(info: str or list):
 
 
 # 接下来三个函数是三个html2bbcode的网站版实现，由于打包成exe,自带的不是很好用，不知道为啥
-def to_bbcode_use_api(data_html):
+# 顺序有所调整，修复
+def to_bbcode_use_api_3(data_html):
     url = 'https://www.garyshood.com/htmltobb/'
     data = {
         'baseurl': '',
         'html': data_html.encode()
     }
-    des_post = requests.post(url=url, data=data)
-
-    return_html = des_post.content.decode()
     try:
+        des_post = requests.post(url=url, data=data)
+        return_html = des_post.content.decode()
         mysoup = BeautifulSoup(return_html, 'lxml')
         code = mysoup.find('textarea').get_text()
     except Exception:
+        code = to_bbcode(data_html)
+
+    return code
+
+
+def to_bbcode_use_api(data_html):
+    url = 'http://skeena.net/htmltobb/index.pl'
+    data = {
+        'html': data_html.encode()
+    }
+
+    try:
+        des_post = requests.post(url=url, data=data)
+        return_html = des_post.content.decode()
+        mysoup = BeautifulSoup(return_html, 'lxml')
+        code = mysoup.find('textarea').get_text()
+    except Exception as exc:
+        # print(exc)
         code = to_bbcode_use_api_2(data_html)
 
     return code
 
 
 def to_bbcode_use_api_2(data_html):
-    url = 'http://skeena.net/htmltobb/index.pl'
-    data = {
-        'html': data_html.encode()
-    }
-    des_post = requests.post(url=url, data=data)
-
-    return_html = des_post.content.decode()
-    try:
-        mysoup = BeautifulSoup(return_html, 'lxml')
-        code = mysoup.find('textarea').get_text()
-    except Exception as exc:
-        # print(exc)
-        code = to_bbcode_use_api_3(data_html)
-
-    return code
-
-
-def to_bbcode_use_api_3(data_html):
     headers = {
-        'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-                      "Chrome/74.0.3729.169 Safari/537.36",
+        'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36",
         'Cookie': 'csrftoken=11pSdyiaWLoC54kGmeEeNrbpynMayd5NRzxz2kiV99Qc5zXFQMkwzPn7hMPpv7nU'
     }
     session = requests.session()
@@ -1123,13 +1122,13 @@ def to_bbcode_use_api_3(data_html):
         'csrfmiddlewaretoken': 'QxD85IWlX2yiTWBwytXpuAszocEarpRhG5LPUuW6aq0STrev21DHgYEh7BHpoj9o',
         'html': data_html
     }
-    des_post = session.post(url=url, data=data)
-    return_html = des_post.content.decode()
     try:
+        des_post = session.post(url=url, data=data)
+        return_html = des_post.content.decode()
         soup = BeautifulSoup(return_html, 'lxml')
         code = soup.find('textarea', id='bbcode').get_text()
     except Exception:
-        code = to_bbcode(data_html)
+        code = to_bbcode_use_api_3(data_html)
     return code
 
 
