@@ -130,8 +130,8 @@ class HtmlHandler:
 
         # 获取imdb链接和豆瓣信息
         self.get_imdb_douban_link_by_str(descr)
-        douban_info = self.get_douban_info()
-        self.raw_info['douban_info'] = douban_info
+        # douban_info = self.get_douban_info()
+        # self.raw_info['douban_info'] = douban_info
         self.raw_info['url'] = self.ref_link['imdb_link']
 
         # 主、副标题
