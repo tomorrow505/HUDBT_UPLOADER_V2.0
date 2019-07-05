@@ -3,8 +3,8 @@
 测试环境：win10 + python3.6.4  + qbit4.1.5
 
 支持的站点： 
-1. 教育网：北邮人、北洋园、南洋、蒲公英、麦田、葡萄
-2. 公网：TTG、HDChina、MTeam、天空、HDHome、朋友、OurBits
++ 教育网：北邮人、北洋园、南洋、蒲公英、麦田、葡萄
++ 公网：TTG、HDChina、MTeam、天空、HDHome、朋友、OurBits
 
 
 更新记录：copy自HUDBT：<https://hudbt.hust.edu.cn/details.php?id=142028&hit=1> 
