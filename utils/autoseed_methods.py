@@ -221,12 +221,10 @@ class AutoSeed (threading.Thread):
 
         self.raw_info['abbr'] = pt_site['abbr']
         if not filename:
-            filename = '%s_%s_%s' % (self.raw_info['title'], pt_site['abbr'], tid)
-        else:
-            filename = '%s_%s_%s' % (filename, pt_site['abbr'], tid)
-        
+            filename = '%s_%s' % (pt_site['abbr'], tid)
+
         self.raw_info['filename'] = filename
-		origin_file_path = self.config_dl['cache_path'] + '\\%s.torrent' % filename
+        origin_file_path = self.config_dl['cache_path'] + '\\%s.torrent' % filename
 
         # back_file_path = self.config_dl['cache_path'] + '\\%s_back.torrent' % filename
 

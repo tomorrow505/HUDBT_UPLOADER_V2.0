@@ -104,13 +104,27 @@ frds = {
     'passkey': '',
     'cookie': []
 }
+hdhome = {
+    'abbr': 'HDHome',
+    'domain': 'https://hdhome.org',
+    'index': 'https://hdhome.org/index.php',
+    'passkey': '',
+    'cookie': []
+}
+nwsuaf6 = {
+    'abbr': '麦田',
+    'domain': 'https://pt.nwsuaf6.edu.cn',
+    'index': 'https://pt.nwsuaf6.edu.cn/index.php',
+    'passkey': '',
+    'cookie': []
+}
 sites_dict = {
     "北邮人": byr, "蒲公英": npupt, "葡萄": stju, "北洋园": tjupt, "南洋": nypt, "M-team": mteam, "OurBits": ourbits, "CMCT": cmct,
-    "瓷器": hdchina, "TTG": ttg, "天空": hdsky, "朋友": frds
+    "瓷器": hdchina, "TTG": ttg, "天空": hdsky, "朋友": frds, 'hdhome': hdhome, '麦田': nwsuaf6
 }
 back_site_dict = {
     "北邮人": byr, "蒲公英": npupt, "葡萄": stju, "北洋园": tjupt, "南洋": nypt, "M-team": mteam, "OurBits": ourbits, "CMCT": cmct,
-    "瓷器": hdchina, "TTG": ttg, "天空": hdsky, "蝴蝶": hudbt, "朋友": frds
+    "瓷器": hdchina, "TTG": ttg, "天空": hdsky, "蝴蝶": hudbt, "朋友": frds, 'hdhome': hdhome, '麦田': nwsuaf6
 }
 
 

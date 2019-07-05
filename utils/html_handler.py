@@ -28,9 +28,10 @@ good_team = ('TJUPT', 'MTEAM', 'MPAD', 'HDS', 'HDSPAD', 'NYPT', 'FRDS', 'CHD', '
 
 
 type_dict = {
-    "电影": [(['华语', '大陆', '中国'], 401), (['欧洲', '北美', '美国', '法国', '瑞典', '英国', '德国', '意大利', '西班牙', '加拿大'], 415),
+    "电影": [(['华语', '大陆', '中国', '国产'], 401), (['欧洲', '北美', '美国', '法国', '瑞典', '英国', '德国', '意大利', '西班牙', '加拿大', '欧美'], 415),
            (['亚洲', '日本', '韩国', '日韩', '印度', '泰国'], 414), (['香港', '台湾'], 413)],
-    "Movie": [(['大陆', 'CN'], 401), (['欧美', 'US/EU'], 415), (['日韩', 'KR', 'JP', 'KR/韩', 'JP/日'], 414),
+    "Movie": [(['大陆', 'CN', '台湾'], 401), (['欧美', 'US/EU', '意大利', '法国', '瑞典', '英国', '德国', '西班牙', '加拿大', '美国'], 415),
+              (['日韩', 'KR', 'JP', 'KR/韩', 'JP/日'], 414),
               (['港台', 'HK/TW'], 413)],
     "剧集": [(['大陆'], 402), (['欧美', '美剧', '英剧', '美国', '法国', '瑞典', '英国', '德国', '意大利', '西班牙', '加拿大'], 418),
            (['日韩', '日剧', '韩剧'], 416), (['港台'], 417)],
@@ -104,6 +105,8 @@ class HtmlHandler:
             'hdchina': self.parser_html_hdchina,
             'ttg': self.parser_html_ttg,
             'FRDS': self.parser_html_frds,
+            'HDHome': self.parser_html_hdhome,
+            '麦田': self.parser_html_nwsuaf6,
             'hdsky': self.parser_html_hdsky
         }
         func_dict[self.site]()
@@ -795,6 +798,111 @@ class HtmlHandler:
         if not self.raw_info['nfo']:
             self.raw_info['nfo'] = judge_nfo_existed(self.raw_info['descr'])
         # print(self.raw_info['descr'])
+
+    # hdhome  # 信任的站点
+    def parser_html_hdhome(self):
+        # 主标题
+        title = to_bbcode(str(self.soup.find('h1', id='top').get_text()))
+        title = title.split('[免费]')[0]
+        title = re.sub('\[.*?\]', '', title)
+        self.raw_info['title'] = ' '.join(title.split('.')).strip()
+
+        # # 副标题
+        sub_title = to_bbcode(str(self.soup.select('.rowfollow')[1].get_text()))
+        sub_title = re.sub('\[|\]', '', sub_title)
+        self.raw_info['small_descr'] = sub_title
+
+        # 简介
+        descr = self.soup.find('div', id='kdescr')
+        descr = format_mediainfo(self.soup, descr, mode=0)
+        descr = format_descr(descr)
+        self.raw_info['descr'] = descr
+
+        # 获取链接和豆瓣信息
+        self.get_imdb_douban_link_by_str(descr)
+
+        self.raw_info['url'] = self.ref_link['imdb_link']
+
+        # 类型
+        type_ = to_bbcode(str(self.soup.select('.rowfollow')[2].get_text()))
+        try:
+            chandi = re.search('◎产　　地　(.*)', self.raw_info['descr'])
+            chandi = ''.join(chandi.group(1).split())
+        except AttributeError:
+            try:
+                chandi = re.search('◎国　　家　(.*)', self.raw_info['descr'])
+                chandi = ''.join(chandi.group(1).split())
+            except AttributeError:
+                chandi = ''
+        if not chandi:
+            try:
+                chandi = re.search('◎地　　区　(.*)', self.raw_info['descr'])
+                chandi = ''.join(chandi.group(1).split())
+            except AttributeError:
+                chandi = ''
+        type_ = type_ + chandi
+        self.raw_info['type_'] = get_type_from_info(type_)
+
+        if not self.raw_info['nfo']:
+            self.raw_info['nfo'] = judge_nfo_existed(self.raw_info['descr'])
+        # print(self.raw_info['descr'])
+
+    # 麦田  # 信任的站点
+    def parser_html_nwsuaf6(self):
+
+        # 类型很好获取
+        type_ = self.soup.select('.rowfollow')[3].get_text()
+        self.raw_info['type_'] = get_type_from_info(type_)
+
+        # 简介
+        descr = self.soup.find('div', id='kdescr')
+        descr = format_mediainfo(self.soup, descr, mode=0)
+        descr = format_descr_nwsuaf6(descr)
+        self.raw_info['descr'] = descr
+
+        # 获取imdb链接和豆瓣信息
+        self.get_imdb_douban_link_by_str(descr)
+        self.raw_info['url'] = self.ref_link['imdb_link']
+
+        # 主、副标题
+        small_descr = self.soup.select('.rowfollow')[2].get_text()
+        sub_info = to_bbcode(str(self.soup.find('h1', id='top')))
+        if len(small_descr) == 0:
+            sub_info_1 = re.sub('\[[^\u4e00-\u9fff]+\]|\[|\]', ' ', sub_info)
+            sub_info_1 = re.sub("国产|连载|华语|英文|大陆|欧美", "", sub_info_1).replace(' ', '')
+            small_descr = sub_info_1
+        if self.raw_info['type_'] in [401, 413, 402, 417, 403, 419]:
+            tran_name = re.search('◎片　　名　(.*)', self.raw_info['descr'] + self.raw_info['douban_info'])
+        else:
+            tran_name = re.search('◎译　　名　(.*)', self.raw_info['descr'] + self.raw_info['douban_info'])
+        try:
+            tran_name = tran_name.group(1).split('/')[0].strip()
+            if small_descr.find(tran_name) >= 0:
+                pass
+            else:
+                small_descr = tran_name + ' ' + small_descr
+        except AttributeError:
+            pass
+        self.raw_info['small_descr'] = small_descr.replace('免费', '')
+
+        if self.raw_info['type_'] in [412, 411, 410]:
+            sub_info_2 = re.sub('\[|\]', ' ', sub_info)
+            sub_info_2 = re.sub(' +', ' ', sub_info_2)
+            self.raw_info['title'] = sub_info_2.strip()
+
+        # print(self.raw_info['descr'])
+
+        # hash_info
+        hash_info = ''
+        no_border_wide = self.soup.select('td .no_border_wide')
+        for item in no_border_wide:
+            item_str = str(item)
+            if item_str.find('Hash码') >= 0:
+                hash_info = to_bbcode(item_str).split(':')[-1].strip()
+                break
+        self.raw_info['hash_info'] = hash_info
+
+        self.raw_info['nfo'] = judge_nfo_existed(self.raw_info['descr'])
 
     def get_imdb_douban_link_by_str(self, check_str):
         if not self.ref_link['imdb_link']:
