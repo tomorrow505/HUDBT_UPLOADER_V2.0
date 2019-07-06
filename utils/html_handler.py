@@ -26,7 +26,7 @@ good_team = ('TJUPT', 'MTEAM', 'MPAD', 'HDS', 'HDSPAD', 'NYPT', 'FRDS', 'CHD', '
              'BMF', 'DECIBEL', 'D-ZON3', 'NCMT', 'HANDJOB', 'AO', 'PBK', 'OURTV', 'OURPAD', 'FLETTH', 'MGS', 'PUTAO',
              'NPUPT', 'NTG', 'NGB', 'DOA', 'TTG', 'NTB', 'DANNI', 'LING', 'HDHOME')
 
-
+#  其实国家这些还可以提取出来，作为更普通的列表然后填进去
 type_dict = {
     "电影": [(['华语', '大陆', '中国', '国产'], 401), (['欧洲', '北美', '美国', '法国', '瑞典', '英国', '德国', '意大利', '西班牙', '加拿大', '欧美'], 415),
            (['亚洲', '日本', '韩国', '日韩', '印度', '泰国'], 414), (['香港', '台湾'], 413)],
@@ -1069,6 +1069,8 @@ def format_descr_ourbits(descr):
     hide_info = re.findall('(\[hide\][\s\S]*?\[/hide\])', descr, re.M,)
     for item in hide_info:
         descr = descr.replace(item, '')
+
+    descr = descr.replace('[img]attachments', '[img]https://ourbits.club/attachments')
     return descr
 
 
@@ -1210,7 +1212,8 @@ def to_bbcode_use_api(data_html):
         return_html = des_post.content.decode()
         mysoup = BeautifulSoup(return_html, 'lxml')
         code = mysoup.find('textarea').get_text()
-		 # 这个网站解析出来很多是http:/bt 而不是http://bt的形式，替换掉
+        # 这个网站解析出来很多是http:/bt 而不是http://bt的形式，替换掉
+
         def change_str(str_):
 
             str_ = '//'.join(str_.group().split('/'))
@@ -1226,7 +1229,8 @@ def to_bbcode_use_api(data_html):
 
 def to_bbcode_use_api_2(data_html):
     headers = {
-        'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36",
+        'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+                      "Chrome/74.0.3729.169 Safari/537.36",
         'Cookie': 'csrftoken=11pSdyiaWLoC54kGmeEeNrbpynMayd5NRzxz2kiV99Qc5zXFQMkwzPn7hMPpv7nU'
     }
     session = requests.session()
