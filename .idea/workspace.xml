@@ -21,11 +21,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="get_rss_info.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="get_rss_info.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/utils/get_rss_info.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="25">
-              <caret line="1" column="20" lean-forward="false" selection-start-line="1" selection-start-column="20" selection-end-line="1" selection-end-column="20" />
+            <state relative-caret-position="485">
+              <caret line="67" column="26" lean-forward="false" selection-start-line="67" selection-start-column="26" selection-end-line="67" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -54,8 +54,8 @@
       <file leaf-file-name="autoseed_methods.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils/autoseed_methods.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="87" column="22" lean-forward="true" selection-start-line="87" selection-start-column="22" selection-end-line="87" selection-end-column="22" />
+            <state relative-caret-position="1925">
+              <caret line="87" column="22" lean-forward="false" selection-start-line="87" selection-start-column="22" selection-end-line="87" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -71,7 +71,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="html_handler.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="html_handler.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils/html_handler.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="410">
@@ -138,7 +138,6 @@
         <option value="$PROJECT_DIR$/utils/gen.py" />
         <option value="$PROJECT_DIR$/utils/get_douban_info.py" />
         <option value="$PROJECT_DIR$/utils/get_media_info.py" />
-        <option value="$PROJECT_DIR$/utils/get_rss_info.py" />
         <option value="$PROJECT_DIR$/utils/hand_upload.py" />
         <option value="$PROJECT_DIR$/utils/my_bencode.py" />
         <option value="$PROJECT_DIR$/utils/login.py" />
@@ -147,6 +146,7 @@
         <option value="$PROJECT_DIR$/utils/config_sites.py" />
         <option value="$PROJECT_DIR$/utils/autoseed_methods.py" />
         <option value="$PROJECT_DIR$/utils/html_handler.py" />
+        <option value="$PROJECT_DIR$/utils/get_rss_info.py" />
       </list>
     </option>
   </component>
@@ -157,7 +157,7 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
+    <option name="x" value="1912" />
     <option name="y" value="-8" />
     <option name="width" value="1936" />
     <option name="height" value="1096" />
@@ -177,6 +177,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -194,7 +195,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -232,7 +232,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
+    <frame x="1912" y="-8" width="1936" height="1096" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -241,7 +241,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26066098" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16950959" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="SciView" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -675,14 +675,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utils/get_rss_info.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="25">
-          <caret line="1" column="20" lean-forward="false" selection-start-line="1" selection-start-column="20" selection-end-line="1" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/utils/reseed_panel.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="25">
@@ -709,8 +701,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/utils/autoseed_methods.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="87" column="22" lean-forward="true" selection-start-line="87" selection-start-column="22" selection-end-line="87" selection-end-column="22" />
+        <state relative-caret-position="1925">
+          <caret line="87" column="22" lean-forward="false" selection-start-line="87" selection-start-column="22" selection-end-line="87" selection-end-column="22" />
           <folding />
         </state>
       </provider>
@@ -722,6 +714,14 @@
           <folding>
             <element signature="e#43549#47049#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/get_rss_info.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="485">
+          <caret line="67" column="26" lean-forward="false" selection-start-line="67" selection-start-column="26" selection-end-line="67" selection-end-column="26" />
+          <folding />
         </state>
       </provider>
     </entry>

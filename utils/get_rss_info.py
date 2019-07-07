@@ -65,7 +65,7 @@ class RssLinkHandler:
 def judge_size(entrie, size):
     if int(size) == 0:
         return True
-    g = re.search('\[(\d.*?) GB\]', entrie['title'])
+    g = re.search('\[([\d\.]*?) GB\]', entrie['title'])
     try:
         size_ = float(g.group(1))
     except AttributeError:
