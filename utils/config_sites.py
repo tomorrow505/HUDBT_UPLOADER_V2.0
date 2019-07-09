@@ -64,8 +64,8 @@ ourbits = {
 }
 cmct = {
     'abbr': 'cmct',
-    'domain': 'https://hdcmct.org',
-    'index': 'https://hdcmct.org/index.php',
+    'domain': 'https://springsunday.net',
+    'index': 'https://springsunday.net/index.php',
     'passkey': '',
     'cookie': []
 }

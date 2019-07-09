@@ -205,7 +205,7 @@ class HandUploadPage(tk.Frame):
             video_info = ''
             picture_info = ''
             if self.var_video_dir:
-                self.raw_info['download_path'] = self.var_video_dir
+                self.raw_info['download_path'] = self.var_video_dir.get()
                 file_path = commen_component.parser_torrent(self.raw_info['torrent_path'])
                 self.video_path = os.path.join(self.var_video_dir.get(), file_path)
                 video_name = self.video_path.split('\\')[-1]

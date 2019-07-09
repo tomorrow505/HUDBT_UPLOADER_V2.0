@@ -195,16 +195,19 @@ class HtmlHandler:
         self.raw_info['type_'] = get_type_from_info(type_)
 
         # 简介
-        descr = to_bbcode_use_api(str(self.soup.find('div', id='kdescr')))
-        descr = format_descr_cmct(descr)
+        descr = self.soup.find('div', id='kdescr')
+        descr = format_mediainfo(self.soup, descr, mode=0)
+        descr = format_descr(descr)
         self.raw_info['descr'] = descr
 
         # 获取链接和豆瓣信息
         self.get_imdb_douban_link_by_str(descr)
-        douban_info = self.get_douban_info()
-        self.raw_info['douban_info'] = douban_info
+        # douban_info = self.get_douban_info()
+        # self.raw_info['douban_info'] = douban_info
 
         self.raw_info['url'] = self.ref_link['imdb_link']
+
+        self.raw_info['nfo'] = judge_nfo_existed(self.raw_info['descr'])
 
     # HDChina  # 信任的站点
     def parser_html_hdchina(self):
