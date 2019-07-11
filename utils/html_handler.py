@@ -1025,18 +1025,6 @@ def format_descr_byr(descr):
     return descr
 
 
-def format_descr_cmct(descr):
-    tmp = []
-    descr = descr.split('\n')
-    for line in descr:
-        if len(line.strip()) == 0:
-            pass
-        else:
-            tmp.append(line)
-    descr = '\n'.join(tmp[3:-7])
-    return descr
-
-
 def get_hdchina_download_url(html):
     soup = BeautifulSoup(html, 'lxml')
     # print(html)
@@ -1114,7 +1102,7 @@ def format_descr_tjupt(descr):
         '[img]https://www.tjupt.org/attachments')
     descr = descr.replace(
         'https://www.tjupt.org/jump_external.php?ext_url=', '')
-    descr = descr.replace('/jump_external.php?ext_url=', '')
+    descr = re.sub('/jump_external.php?[\s\S]+?ext_url=', '', descr)
     descr = descr.replace('%3A', ':')
     descr = descr.replace('%2F', '/')
 
