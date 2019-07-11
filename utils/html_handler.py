@@ -15,11 +15,11 @@ from urllib.parse import unquote
 
 judge_list = ['RELEASE NAME', 'RELEASE DATE', 'VIDEO CODE', 'FRAME RATE', 'AUDIO', 'SOURCE', 'BIT RATE',
               'RESOLUTION', 'SUBTITLES', 'FRAMERATE', 'BITRATE', '[IMG]', '视频编码', '帧　　率', '译　　名',
-              '主　　演', '海报']  # [IMG]为了留下ourbits图片  视频编码, 帧　　率 保留HDChina， 译名防止把简介用quote框起来 海报是为了保留北邮人的海报
+              '主　　演', '海报', '分辨率']  # [IMG]为了留下ourbits图片  视频编码, 帧　　率 保留HDChina， 译名防止把简介用quote框起来 海报是为了保留北邮人的海报
 
 
 mediainfo_judge = ['RELEASE NAME', 'RELEASE DATE', 'VIDEO CODE', 'FRAME RATE', 'AUDIO', 'SOURCE', 'BIT RATE',
-                   'RESOLUTION', 'SUBTITLES', 'FRAMERATE', 'BITRATE', '视频编码', '帧　　率']
+                   'RESOLUTION', 'SUBTITLES', 'FRAMERATE', 'BITRATE', '视频编码', '帧　　率', '帧　率', '分辨率']
 
 good_team = ('TJUPT', 'MTEAM', 'MPAD', 'HDS', 'HDSPAD', 'NYPT', 'FRDS', 'CHD', 'CHDPAD', 'EPIC', 'DRONES', 'AMIABLE',
              'SPARKS', 'CMCT', 'HDCHINA', 'BEAST', 'WIKI', 'CTRLHD', 'TAYTO', 'DON', 'EBP', 'IDE', 'ZQ', 'HIFI',
