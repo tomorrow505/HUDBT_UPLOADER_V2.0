@@ -296,7 +296,7 @@ class MainPage(tk.Tk):
         if len(hash_list):
             result = tk.messagebox.askokcancel('提示', '是否删除超时的%d个种子?' % len(hash_list))
             if result:
-                self.delete_permanently(hash_list)
+                self.qb.delete_permanently(hash_list)
 
 
 if __name__ == "__main__":
