@@ -310,7 +310,7 @@ class AutoSeed (threading.Thread):
             raw_info['type_'] = 430
 
         if raw_info['descr_rss']:
-            raw_info['descr'] = raw_info['descr_rss'] + raw_info['recommand']
+            raw_info['descr'] = raw_info['descr_rss']
         else:
             if raw_info['douban_info']:
                 raw_info['descr'] = raw_info['douban_info'] + raw_info['nfo'] + raw_info['picture_info']
