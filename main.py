@@ -210,7 +210,7 @@ class MainPage(tk.Tk):
                 os.chdir(pathdir)
                 filelist = list(os.listdir())
                 for file in filelist:
-                    if os.path.isfile(file):
+                    if os.path.isfile(file) and file.endswith(('.torrent', '.jpg', '.log')):
                         os.remove(file)
         except Exception as exc:
             tk.messagebox.showerror('失败', exc)
