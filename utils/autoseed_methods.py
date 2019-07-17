@@ -307,7 +307,9 @@ class AutoSeed (threading.Thread):
         elif name.lower().find('720p') >= 0:
             raw_info['standard_sel'] = 3
         if name.upper().endswith(("PAD", 'IHD')):
-            raw_info['type_'] = 430
+            upload_type = 430
+        else:
+            upload_type = raw_info['type_']
 
         if raw_info['descr_rss']:
             raw_info['descr'] = raw_info['descr_rss']
@@ -331,7 +333,7 @@ class AutoSeed (threading.Thread):
             "small_descr": raw_info["small_descr"],
             "url": raw_info["url"],
             "descr": raw_info["descr"],
-            "type": str(raw_info["type_"]),
+            "type": str(upload_type),
             "data[Tcategory][Tcategory][]": "",
             "standard_sel": str(raw_info["standard_sel"]),
             "uplver": raw_info['uplver'],
