@@ -213,7 +213,7 @@ class AutoUploadPage(tk.Frame):  # 继承Frame类
     def add_rss_task(self):
         while True:
             self.rsshandler.change_refresh_time(self.config_dl['refresh_time'])
-			self.rsshandler.now_time = ''
+            self.rsshandler.now_time = ''
             entries_list = self.rsshandler.get_entries(self.config_dl['Max_Size'])
             for item in entries_list:
                 detail_link = item['link']

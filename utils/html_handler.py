@@ -860,7 +860,7 @@ class HtmlHandler:
         # 简介
         descr = self.soup.find('div', id='kdescr')
         descr = format_mediainfo(self.soup, descr, mode=0)
-        descr = format_descr_nwsuaf6(descr)
+        descr = format_descr(descr)
         self.raw_info['descr'] = descr
 
         # 获取imdb链接和豆瓣信息

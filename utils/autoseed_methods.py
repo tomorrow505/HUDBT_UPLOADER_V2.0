@@ -179,7 +179,7 @@ class AutoSeed (threading.Thread):
         return self.statu[-1]
 
     def get_torrent_id(self):
-        return commen_component.get_id(self.origin_url)
+        return commen_component.get_id(self.raw_info['detail_link'])
 
     def wait_for_download(self, hash_info):
         while True:

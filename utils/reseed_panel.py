@@ -116,11 +116,11 @@ class ReseedPage(tk.Frame):
             full_name = parser[section]['full_name']
             download_torrent_by_keyword(keyword=keyword, driver=driver_, size=size)
             
-			# 发现有的种子比较大，下载慢，所以要求等待下载完
-			sleep(2)
+            # 发现有的种子比较大，下载慢，所以要求等待下载完
+            sleep(2)
             
             while True:
-			    torrents = os.listdir(self.torrent_path)
+                torrents = os.listdir(self.torrent_path)
                 if all(torrent.endswith('.torrent') for torrent in torrents):
                     break
                 else:
